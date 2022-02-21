@@ -1,20 +1,6 @@
 <?php include("inc/header.php");?>
-
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-
-    
-    <title>User Sign Up</title>
-
-</head>
-
-<body id="usersignup">
 <div>
-  <h1>User Sign Up</h1>
+  <h1>User Register</h1>
     <hr>
     <div class="container">
     <div class="myform">
@@ -93,5 +79,4 @@
     </div>
     </div>
 </div>
-
 <?php include("inc/footer.php");?>

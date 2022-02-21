@@ -29,7 +29,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         font-weight: 400;
         text-align: center;
     }
-    
     .myform{
         background: whitesmoke; 
         opacity: 0.8;  /*just remove this line or change it to 0.9 or 0.7*/
@@ -40,9 +39,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         margin: auto;
     }
 
-
-
-
 </style>
 
 </head>
@@ -50,7 +46,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand">Car Rental Agency</a>
-    <a href="<?php echo site_url('Welcome'); ?>" type="button" class="btn btn-outline-success" style="margin-right: 50px;">HOME</a>
+    <div><a href="<?php echo site_url('Welcome'); ?>" type="button" class="btn btn-outline-success" style="margin-right: 50px;">HOME</a></div>
+    <div>
+    <a href="<?php echo site_url('Welcome/logout'); ?>" type="button" class="btn btn-outline-danger ">LOG OUT</a></div>
     <button class="btn btn-outline-warning btn-md ml-auto" onclick="history.back()">Go Back</button>
     </nav>
     

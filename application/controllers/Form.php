@@ -8,21 +8,18 @@ class Form extends CI_Controller {
     {  
         $this->login();  
     }  
-  // LOG IN FUNCTION----------------------------------
+  //-----------------------------------------------------------------------------LOG IN FUNCTION
     public function login()  
     {  
         $this->load->view('userlogin');  
     }
-  //userRegister FUNCTION-------------------------------
+  //-----------------------------------------------------------------------FUNCTION userRegister 
     public function userRegister()
 	{
         
-	//$this->load->model('queries');
-	//$roles=$this->queries->getRoles();
-    //$this->load->view('userregister', ['roles'=>$roles]);
 	  $this->load->view('userregister');		 		
 	}
-  //userSignup FUNCTION--------------------------------------------------------
+  //-------------------------------------------------------------------------FUNCTION userSignup 
     public function userSignup()
 	{
 		$this->load->helper(array('form', 'url'));
@@ -36,109 +33,110 @@ class Form extends CI_Controller {
 				array('required' => 'You must provide a %s.')
 		);
 		
-        //	$this->form_validation->set_rules('city', 'ENTER CITY', 'required');  
-
+    //	$this->form_validation->set_rules('city', 'ENTER CITY', 'required');          
 		if ($this->form_validation->run() == TRUE)
 		{
-		//this array is used to get fetch data from the view page.  
-		$data = array(  
-			'username'  => $this->input->post('username'),  
-		//	'gender'    => $this->input->post('gender'),
-			'contact'   => $this->input->post('contact'),  
-			'email'     => $this->input->post('email'),  
-			'password'  => sha1($this->input->post('password')),  
-			'city'      => $this->input->post('city'),  
-			
-			);  
-		//insert data into database table.  
-		$this->db->insert('tbl_users',$data);  
-
-		redirect("Form");  
-		} 
-		else
-		{	
-			$this->userRegister();
-		}   
-	}
-    //login_action FUNCTION----------------------------------------------------------------------
-    public function login_action()  
-    {  
-        $this->load->library('form_validation','fv');
-        $email = $this->input->post('email');
-        $password = $this->input->post('password');
-        $this->load->model('loginmodel');
-        
-       if($this->loginmodel->validate_user($email,$password))
-       {
-            
-            redirect("Cart");
-        } else {
-            redirect('Form/invalid');
-       }      
-    }
-    
-  
-  
-  
-  
-    public function data()  
-    {  
-        if ($this->session->userdata('currently_logged_in'))   
-        {  
-            $this->load->view('data');  
-        } else {  
-            redirect('Form/invalid');  
-        }  
-    }  
-  
-    public function invalid()  
-    {  
-        $this->load->view('invalid');  
-    }  
-  
-
- /*   public function signin_validation()  
-    {  
-        $this->load->library('form_validation');  
-  
-        $this->form_validation->set_rules('username', 'Username', 'trim|xss_clean|is_unique[signup.username]');  
-  
-        $this->form_validation->set_rules('password', 'Password', 'required|trim');  
-  
-        $this->form_validation->set_rules('cpassword', 'Confirm Password', 'required|trim|matches[password]');  
-  
-        $this->form_validation->set_message('is_unique', 'username already exists');  
-  
-    if ($this->form_validation->run())  
-        {  
-            echo "Welcome, you are logged in.";  
-         }   
-            else {  
+      $this->load->library('form_validation');
+      $email = $this->input->post('email');
+      $this->load->model('loginmodel');
+          if ($this->loginmodel->validate_usersignup($email)){
+          //this array is used to get fetch data from the view page.  
+            $data = array(  
+              'username'  => $this->input->post('username'),  
+            //	'gender'    => $this->input->post('gender'),
+              'contact'   => $this->input->post('contact'),  
+              'email'     => $this->input->post('email'),  
+              'password'  => ($this->input->post('password')),  
+              'city'      => $this->input->post('city'),  
               
-            $this->load->view('signin');  
-        }  
-    } 
-*/ 
-  
-/*    public function validation()  
-    {  
-        $this->load->model('login_model');  
-  
-        if ($this->login_model->log_in_correctly())  
-        {  
-  
-            return true;  
-        } else {  
-            $this->form_validation->set_message('validation', 'Incorrect username/password.');  
-            return false;  
-        }  
+              );  
+          //insert data into database table.  
+            $this->db->insert('tbl_users',$data);  
+            redirect("Form");  
+            }
+            else{	
+            echo '<script>alert("Email already registered")</script>';
+            $this->userRegister();
+            }  
+		} 
+    else
+    {	            
+    $this->userRegister();
     }  
-  */
-  /*  public function logout()  
-    {  
-        $this->session->sess_destroy();  
-        redirect('Main/login');  
+ 
+	}
+  //-----------------------------------------------------------------------------------FUNCTION login_action 
+  public function login_action()  
+  {  
+
+      $this->load->library('form_validation');
+      $email = $this->input->post('email');
+      $password = $this->input->post('password');
+      $this->load->model('loginmodel');
+        
+      if($this->loginmodel->validate_user($email,$password))
+     {
+
+     if(isset( $_SESSION['counter'] ) ) {
+      $_SESSION['counter'] = $email;
+      $this->car_av_btn();
+      }else {
+      $_SESSION['counter'] = 0;
+      $this->login();
+     }          
+
+    } else {
+    echo '<script>alert("Invalid email/password")</script>';
+    $this->load->view('userlogin');
+   }      
+  }
+
+
+    //----------------------------------------------------------------------------------AVAILABLE CARS FUNCTION
+    public function car_av_btn()  
+    { 
+      
+      if (isset($_SESSION['counter']))
+      {
+      $this->load->view('inc/header2');      
+      $this->load->model('loginmodel');        
+      $result['data']=$this->loginmodel->car_av_user();
+      $this->load->view('upload/car_av',$result);	
+      }
+      elseif (!isset($_SESSION['counter'])){
+        $this->load->view('inc/header');      
+        $this->load->model('loginmodel');        
+        $result['data']=$this->loginmodel->car_av_user();
+        $this->load->view('upload/car_av',$result);	
+      }
+       
+    }
+
+    //-------------------------------------------------------------------------------REQUEST BOOKING FUNCTION
+    public function booked()
+    {
+    if(!$this->input->post('id') == 0){
+
+    //this array is used to get fetch data from the page.  
+    $data = array(  
+      'email'   =>$this->input->post('id'),
+      'date'    => $this->input->post('date'),  
+      'day'     => $this->input->post('day'),
+      'vnumber' => $this->input->post('vnumber')   
+      );   
+    //insert data into database table.  
+        if($this->db->insert('booked',$data)){
+          $this->load->view('inc/header');
+          $this->load->view('booksuccess');	}
+        
+        else{
+        echo'data not inserted';}
     }  
-  */
+    elseif($this->input->post('id') == 0)
+    {redirect('Form');}
+   
+    }
+
+
 }  
 ?>  

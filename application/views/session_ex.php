@@ -1,13 +1,4 @@
-<?php
-defined('BASEPATH') OR exit('No direct script access allowed');
-?>
-
-<!DOCTYPE html>  
-<html lang="en">  
-<head>  
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Car Rental Agency</title>  
+<head>
     <link rel="stylesheet" href="<?php echo base_url('assets/css/bootstrap.css');?>">
     <script src="<?php echo base_url('assets/js/jquery-3.1.0.js'); ?>"></script>
     <script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>"></script>
@@ -39,18 +30,21 @@ defined('BASEPATH') OR exit('No direct script access allowed');
         border-radius: 10px;
         margin: auto;
     }
-
-
-
-
-</style>
-
+</style>    
 </head>
-<body id="userlogin">
+
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <a class="navbar-brand">Car Rental Agency</a>
-    <a href="<?php echo site_url('Welcome'); ?>" type="button" class="btn btn-outline-success" style="margin-right: 50px;">HOME</a>
-    <button class="btn btn-outline-warning btn-md ml-auto" onclick="history.back()">Go Back</button>
+    <a href="<?php echo site_url('Welcome'); ?>" type="button" class="btn btn-outline-success">HOME</a>
     </nav>
-    
+
+<?php
+//-------------------------------------------------------------------------------SESSION EXPIRED
+session_start();
+unset($_SESSION['counter']);
+echo  '<h1>SESSION EXPIRED!!<br>GO TO HOME<h1>';
+echo'<br>';
+echo date('H:i:s Y-m-d'); 
+?> 
+

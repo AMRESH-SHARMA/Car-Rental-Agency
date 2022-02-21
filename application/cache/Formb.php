@@ -79,20 +79,21 @@ class Formb extends CI_Controller {
         
        if($this->loginmodel->validate_agency($aemail,$apassword))
        {
-        $this->main_agency();          
-        } 
-        else
-        {
+          
+        if( isset( $_SESSION['counter'] ) ) {
+            $_SESSION['counter'] = $aemail;
+         }else {
+            $_SESSION['counter'] = "NOT AVAILABLE";
+         } 
+          redirect('Cart/main_agency');
+
+        } else
+         {
             echo '<script>alert("Invalid email/password")</script>';
-            $this->load->view('agencylogin');}     
+            $this->load->view('agencylogin');
+       }      
     }
 
-      //------------------------------------------------------------------MAIN PAGE AFTER AGENCY LOGIN
-      public function main_agency()  
-      {  
-          $this->load->view('inc/header2'); 
-          $this->load->view('agencymain');  
-      }
   
 }  
 ?>  

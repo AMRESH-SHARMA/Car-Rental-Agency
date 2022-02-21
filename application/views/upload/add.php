@@ -1,14 +1,4 @@
-<html lang="en">
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,700" rel="stylesheet">
-    
-    <title></title>
-
-</head>
 
 <body id="usersignup">
 <div>
@@ -17,23 +7,20 @@
     <div class="container">
     <div class="myform">
 
-    <form method="post" action="<?php echo site_url('Cart/caradded'); ?>"> 
+    <form method="post" action="<?php echo site_url('Cart/car_added'); ?>"> 
     
     
 
     <div class="row">
 
-
-    <div class="form-group col-12">
-    <label>VEHICLE MODEL</label>
-    <input type="text" name="vmodel"  class="form-control"  spellcheck="false" placeholder="ABC0000" required>
-     </div>
-
-     
      <div class="form-group col-12">
      <label>VEHICLE NUMBER</label>
      <input type="text"  name="vnumber"  class="form-control"  spellcheck="false" placeholder="ABC000000" required>
      
+     </div>
+     <div class="form-group col-12">
+     <label>VEHICLE MODEL</label>
+     <input type="text" name="vmodel"  class="form-control"  spellcheck="false" placeholder="ABC0000" required>
      </div>
 
       <div class="form-group col-12">
@@ -44,7 +31,7 @@
 
       <div class="form-group col-12">
       <label>RENT</label>
-      <input type="text"  name="rent"  class="form-control"  placeholder="000" required>
+      <input type="text"  name="rent"  class="form-control"  placeholder="$000" required>
       
       </div>
 
@@ -60,13 +47,3 @@
     </div>
     </div>
 </div>
-    <!-- jQuery -->
-    <script src="js/jquery-3.1.0.js"></script>
-
-    <!-- Bootstrap Core JavaScript 
-    <script src="js/bootstrap.min.js"></script>  -->
-
-    <!-- Morris Charts JavaScript -->
-    <script src="js/plugins/morris/raphael.min.js"></script>
-    <script src="js/plugins/morris/morris.min.js"></script>
-    <script src="js/plugins/morris/morris-data.js"></script>

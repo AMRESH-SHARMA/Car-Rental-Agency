@@ -9,14 +9,15 @@ class Cart extends CI_Controller {
         $this->available();  
     } 
 
-  // LOG IN FUNCTION----------------------------------
+  //----------------------------------------------------------------------------------INDEX PAGE
     public function available()  
     {  
-        $this->load->view('car_available');  
+        $this->load->view('inc/header');
+        $this->load->view('upload/car_av');   
     }
 
 
-  // MAIN PAGE AFTER AGENCY LOGIN--------------------------------------------
+  //------------------------------------------------------------------MAIN PAGE AFTER AGENCY LOGIN
     public function main_agency()  
     {  
         $this->load->view('inc/header'); 
@@ -24,82 +25,109 @@ class Cart extends CI_Controller {
     }
 
 
-  // UPLOAD CAR FUNCTION
+  //-----------------------------------------------------------------------------UPLOAD CAR FUNCTION
     public function upload()  
     { 
-        $this->load->view('inc/header');  
-        $this->load->view('upload/dashboard');  
-        $this->load->library('table');
-        $this->load->helper('html');
-
-
-        $query = $this->db->query('SELECT * FROM products');
-        echo $this->table->generate($query);
-        
+   
+      $this->load->view('inc/header2');      
+      $this->load->model('loginmodel');        
+      $result['data']=$this->loginmodel->vehicle_records();
+      $this->load->view('upload/dashboard',$result);	
+     
     }
 
-
-    public function addcar()
+  //--------------------------------------------------------------------------------ADD CAR FUNCTION
+    public function add_car()
 	{
         $this->load->view('inc/header');    
         $this->load->view('upload/add');
 	}
 
-    public function caradded()
-	{
-        $this->load->view('inc/header.php');      
-      //  $this->load->view('upload/add');
-  
-		//this array is used to get fetch data from the view page.  
-		$data = array(  
-			'vmodel'   => $this->input->post('vmodel'),  
-			'vnumber'  => $this->input->post('vnumber'),  
-			'seat'     => $this->input->post('seat'),  
-			'rent'     => $this->input->post('rent'),  
-			);  
-		//insert data into database table.  
-        $this->db->insert('products',$data);
+    //-----------------------------------------------------------------------------CAR  ADDED FUNCTION
+    public function car_added()
+    {
+          $this->load->view('inc/header.php');      
+    
+      //this array is used to get fetch data from the page.  
+      $data = array(  
+        'vmodel'   => $this->input->post('vmodel'),  
+        'vnumber'  => $this->input->post('vnumber'),  
+        'seat'     => $this->input->post('seat'),  
+        'rent'     => $this->input->post('rent'),  
+        );  
+      //insert data into database table.  
+          $this->db->insert('products',$data);
+          redirect("Cart/upload");
 
-        redirect("Cart/upload");
+    }
+
+    //-----------------------------------------------------------------------------DELETE CAR FUNCTION
+    public function del_car()
+    {
+
+      $this->load->view('inc/header');    
+      $id=$this->input->post('id');
+      $this->load->model('loginmodel');
+         if($this->loginmodel->del($id))
+         {
+          return redirect('cart/upload');   
+         }
+
+    }
+  //----------------------------------------------------------------------------------EDIT CAR FUNCTION
+  public function edit_car()
+	{
+      $this->load->view('inc/header');    
+      $id=$this->input->post('id');
+      $data = array(  
+        'id' => $this->input->post('id'),
+        'vmodel'   => $this->input->post('vmodel'),  
+        'vnumber'  => $this->input->post('vnumber'),  
+        'seat'     => $this->input->post('seat'),  
+        'rent'     => $this->input->post('rent'),  
+        );
+      $this->load->view('upload/edit',$data);
 
 	}
 
-    
 
-  // VIEW BOOKING FUNCTION
-    public function view_booking()  
-    {  
-    $this->load->view('agency');  
-    }
+  //--------------------------------------------------------------------------------CAR UPDATED FUNCTION
+  public function car_updated()
+  {
+    $this->load->view('inc/header');    
+    $id=$this->input->post('id');
+    $data = array(  
+      'vmodel'   => $this->input->post('vmodel'),  
+      'vnumber'  => $this->input->post('vnumber'),  
+      'seat'     => $this->input->post('seat'),  
+      'rent'     => $this->input->post('rent'),  
+      );
+        $this->load->model('loginmodel');
+        if($this->loginmodel->updated($id,$data))
+        {
+          return redirect('cart/upload');   
+        }
+  }
 
-    
-   public function viewdashboard()  
-    {  
-        $this->db->select();
-    }  
 
-    public function i()
-    {
-            $data = array(			
-            'vmodel'   => $this->input->post('vmodel'),  
-		      	'vnumber'  => $this->input->post('vnumber'),  
-		      	'seat'     => $this->input->post('seat'),  
-		      	'rent'     => $this->input->post('rent'),  
-             );
+  //------------------------------------------------------------------------------VIEW BOOKING FUNCTION
+  public function view_booked()  
+  {  
+    $this->load->view('inc/header2');  
+    $this->load->model('loginmodel');        
+    $result['data']=$this->loginmodel->book_records();
+    $this->load->view('upload/booked',$result);	
+  }
+  //------------------------------------------------------------------------------VIEW BOOKING FUNCTION
+  public function search()  
+  {  
+    $this->load->view('inc/header2');
+    $vnumber = $this->input->post('vnumber');  
+    $this->load->model('loginmodel');        
+    $result['data']=$this->loginmodel->search($vnumber);
+    $this->load->view('upload/search',$result);	
+  }
 
-            $this->db->select('products',$data);
-    }
-  
-  
 
- 
-  
-
-  /*  public function logout()  
-    {  
-        $this->session->sess_destroy();  
-        redirect('Main/login');  
-    }  
-  */
-}  
+ }
 ?>  

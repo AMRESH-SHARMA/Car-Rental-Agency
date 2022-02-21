@@ -7,8 +7,13 @@ class Welcome extends MY_Controller {
 	{
         
         $this->load->view('home');  
-			 	
-		
-	}	
+	
+	}
+	//--------------------------------------------------------------------------logout FUNCTION
+	public function logout()
+	{					 
+		$this->load->view('session_ex');  
+	}
+
 }
 ?>

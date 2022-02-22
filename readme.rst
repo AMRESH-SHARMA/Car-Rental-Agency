@@ -1,70 +1,32 @@
-###################
-What is CodeIgniter
-###################
 
-CodeIgniter is an Application Development Framework - a toolkit - for people
-who build web sites using PHP. Its goal is to enable you to develop projects
-much faster than you could if you were writing code from scratch, by providing
-a rich set of libraries for commonly needed tasks, as well as a simple
-interface and logical structure to access these libraries. CodeIgniter lets
-you creatively focus on your project by minimizing the amount of code needed
-for a given task.
+Car Rental Agency
 
-*******************
-Release Information
-*******************
+		⦁	Assume you are designing a real-life system that will be used by real users.
 
-This repo contains in-development code for future releases. To download the
-latest stable release please visit the `CodeIgniter Downloads
-<https://codeigniter.com/download>`_ page.
+		⦁	The application should contain 2 types of users: Customers and Car Rental Agency
 
-**************************
-Changelog and New Features
-**************************
+		⦁	Pages to be developed-
 
-You can find a list of all changes for each release in the `user
-guide change log <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/changelog.rst>`_.
+		⦁	‘Registration’ pages - Different registration pages for customers & car rental agencies.
 
-*******************
-Server Requirements
-*******************
+		⦁	‘Login’ pages - Single/different login pages for customers & car rental agencies.
 
-PHP version 5.6 or newer is recommended.
+		⦁	‘Add new cars’ page - A Car rental agency once logged in, should be able to add details of new cars available for rental. Details to add
 
-It should work on 5.3.7 as well, but we strongly advise you NOT to run
-such old versions of PHP, because of potential security and performance
-issues, as well as missing features.
+		⦁	Vehicle model, Vehicle number, seating capacity, rent per day
 
-************
-Installation
-************
+Access to this page should be restricted only to the car rental agency. Car rental agencies should also be able to edit the details of a particular car
+		⦁	‘Available cars to rent’ page - There should be a page that displays all the available cars to rent. Details to display -
+		⦁	Vehicle model, Vehicle number, seating capacity, rent per day
 
-Please see the `installation section <https://codeigniter.com/user_guide/installation/index.html>`_
-of the CodeIgniter User Guide.
+		⦁	Capture input as dropdown for the number of days the customer need to rent the car (This input only be shown when the customer is logged in)
+		⦁	Capture start date (This input only be shown when the customer is logged in)
 
-*******
-License
-*******
+		⦁	‘Rent Car’ button.
 
-Please see the `license
-agreement <https://github.com/bcit-ci/CodeIgniter/blob/develop/user_guide_src/source/license.rst>`_.
+This page should be accessible to everyone, irrespective of whether the user is logged in or not. Expected functionality on click of the ‘Rent Car’ button-
+		⦁	Only customers should be able to book the available car by clicking the ‘Rent Car’ button.
+		⦁	If the customer is not logged in, then he/she should be redirected to the login page.
+		⦁	If a user is logged in as an agency, then the user should not be allowed to book the available car
+		⦁	Car Agency ‘View booked cars’ page - Agency should be able to see the list of all the customers who have booked a particular car.
 
-*********
-Resources
-*********
-
--  `User Guide <https://codeigniter.com/docs>`_
--  `Language File Translations <https://github.com/bcit-ci/codeigniter3-translations>`_
--  `Community Forums <http://forum.codeigniter.com/>`_
--  `Community Wiki <https://github.com/bcit-ci/CodeIgniter/wiki>`_
--  `Community Slack Channel <https://codeigniterchat.slack.com>`_
-
-Report security issues to our `Security Panel <mailto:security@codeigniter.com>`_
-or via our `page on HackerOne <https://hackerone.com/codeigniter>`_, thank you.
-
-***************
-Acknowledgement
-***************
-
-The CodeIgniter team would like to thank EllisLab, all the
-contributors to the CodeIgniter project and you, the CodeIgniter user.
